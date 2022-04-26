@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -17,10 +19,21 @@ public class EmployeeAPI {
         return employeeService.get(id);
     }
 
-    @PostMapping("")
-    public void post(@RequestBody Employee employee) {
-        employeeService.post(employee);
+    @GetMapping()
+    public List<Employee> findAll() {
+        return employeeService.findAll();
     }
+
+    @PostMapping("")
+    public Employee post(@Valid @RequestBody Employee employee) {
+        return employeeService.post(employee);
+    }
+
+    @PutMapping("/{id}/raiseSalary")
+    public Employee raiseSalary(@PathVariable Long id, @RequestParam Double newSalary) {
+        return employeeService.raiseSalary(id, newSalary);
+    }
+
 }
 
 // api/employee?id=1
