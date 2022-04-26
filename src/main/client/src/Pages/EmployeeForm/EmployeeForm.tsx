@@ -1,22 +1,39 @@
 import {Button, TextField} from "@mui/material";
 import {useState} from "react";
-import {blankEmployee, Employee} from "./EmployeeForm.types";
+import {blankEmployee, Employee, EmployeeError} from "./EmployeeForm.types";
 
-export function EmployeeForm() {
-    const [employee, setEmployee] = useState<Employee>(blankEmployee)
+export type EmployeeFormProps = {
+    employee: Employee,
+    setEmployee: (employee: Employee) => void,
+    error: EmployeeError,
+    submit: () => void;
+}
 
+export function EmployeeForm(props: EmployeeFormProps) {
     return (
         <form autoComplete={'off'}>
-            <TextField value={employee.firstName} placeholder={'First Name'} onChange={(e) => {
-                const newEmployee: Employee = {...employee, firstName: e.currentTarget.value}
-                setEmployee(newEmployee)
-            }}/>
-            <TextField value={employee.lastName} placeholder={'Last Name'} onChange={(e) => {
-                const newEmployee: Employee = {...employee, lastName: e.currentTarget.value}
-                setEmployee(newEmployee)
-            }}/>
+            <TextField
+                value={props.employee.firstName}
+                placeholder={'First Name'}
+                onChange={(e) => {
+                    const newEmployee: Employee = {...props.employee, firstName: e.currentTarget.value}
+                    props.setEmployee(newEmployee)
+                }}
+                error={props.error.firstName !== undefined}
+                helperText={props.error.firstName}
+            />
+            <TextField
+                value={props.employee.lastName}
+                placeholder={'Last Name'}
+                onChange={(e) => {
+                    const newEmployee: Employee = {...props.employee, lastName: e.currentTarget.value}
+                    props.setEmployee(newEmployee)
+                }}
+                error={props.error.lastName !== undefined}
+                helperText={props.error.lastName}
+            />
             <Button onClick={(e) => {
-                console.log(employee);
+                props.submit()
             }}>
                 Submit
             </Button>

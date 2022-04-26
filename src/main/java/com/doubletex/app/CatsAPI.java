@@ -12,6 +12,6 @@ public class CatsAPI {
     public String cats(
         @RequestParam("breed") String breed
     ) {
-        return "There was a cat named Mittens who was " + breed;
+        return "There was a cat named LittleNose who was " + breed;
     }
 }
