@@ -19,8 +19,7 @@ public class DoubletexControllerAdvice {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public DoubletexBadRequest handleValidationExceptions(
-            MethodArgumentNotValidException ex) {
+    public DoubletexBadRequest handleValidationExceptions(MethodArgumentNotValidException ex) {
         DoubletexBadRequest doubletexBadRequest = new DoubletexBadRequest();
         ex.getBindingResult().getAllErrors().forEach((error) -> {
             String fieldName = ((FieldError) error).getField();
