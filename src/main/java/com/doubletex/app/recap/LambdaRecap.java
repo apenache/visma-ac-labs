@@ -19,6 +19,8 @@ public class LambdaRecap {
         return String.join(" ", words);
     }
 
+
+
     public static void basics() {
         Function<Integer, Integer> doubleNumber = (x) -> x * 2;
 
@@ -28,6 +30,8 @@ public class LambdaRecap {
 
         System.out.println(yodaQuoter.apply("you shall not pass"));
     }
+
+
 
     public static void moreTypes() {
         Predicate<Integer> isPositive = (x) -> x >= 0; // Same as Function<Integer, Boolean>
@@ -46,6 +50,7 @@ public class LambdaRecap {
     }
 
 
+
     public static List<String> transformEachElement(List<String> originalList, Function<String, String> transformer) {
         List<String> newList = new LinkedList<>();
         for(String originalString : originalList) {
@@ -54,16 +59,22 @@ public class LambdaRecap {
         return newList;
     }
 
+
+
     public static Function<String, Function<String, String> > dialogue =
         (personName) -> (whatTheySaid) -> personName.toUpperCase() + ": " + whatTheySaid;
 
+
+
     public static int costlyComputation() {
-        int sum = 0;
-        for(int i = 1; i <= 150000000; i += 2 * i * i * i) {
-            sum += i;
+        int[] memory = new int[1];
+        for(int i = 1; i <= 150000; i += 1) {
+            memory = new int[i];
         }
-        return sum;
+        return memory.length;
     }
+
+
 
     public static void positiveOrCompute(int myValue, Supplier<Integer> supplier) {
         if(myValue > 0) {
@@ -73,16 +84,18 @@ public class LambdaRecap {
         }
     }
 
+
+
     public static void previewIteration() {
-        // Iteration
         List<String> myList = List.of("You", "are", "a", "wizard", "Harry");
         List<String> otherList = transformEachElement(myList, String::toUpperCase);
 
         System.out.println(otherList);
     }
 
+
+
     public static void partialApplication() {
-        // Partial application
         Function<String, String> frodoSaid = dialogue.apply("Frodo");
         Function<String, String> gandalfSaid = dialogue.apply("Gandalf");
 
@@ -93,7 +106,6 @@ public class LambdaRecap {
     }
 
     public static void lazyComputation() {
-        // Performance
         int someValue = -55;
         System.out.println("start");
         positiveOrCompute(someValue, LambdaRecap::costlyComputation);
