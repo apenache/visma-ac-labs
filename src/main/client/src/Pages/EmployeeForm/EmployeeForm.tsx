@@ -10,14 +10,15 @@ export type EmployeeFormProps = {
 }
 
 export function EmployeeForm(props: EmployeeFormProps) {
+    const { employee, setEmployee, error, submit} = props;
     return (
         <form autoComplete={'off'}>
             <TextField
                 value={props.employee.firstName}
                 placeholder={'First Name'}
                 onChange={(e) => {
-                    const newEmployee: Employee = {...props.employee, firstName: e.currentTarget.value}
-                    props.setEmployee(newEmployee)
+                    const newEmployee: Employee = {...employee, firstName: e.currentTarget.value}
+                    setEmployee(newEmployee)
                 }}
                 error={props.error.firstName !== undefined}
                 helperText={props.error.firstName}
@@ -26,14 +27,14 @@ export function EmployeeForm(props: EmployeeFormProps) {
                 value={props.employee.lastName}
                 placeholder={'Last Name'}
                 onChange={(e) => {
-                    const newEmployee: Employee = {...props.employee, lastName: e.currentTarget.value}
-                    props.setEmployee(newEmployee)
+                    const newEmployee: Employee = {...employee, lastName: e.currentTarget.value}
+                    setEmployee(newEmployee)
                 }}
-                error={props.error.lastName !== undefined}
-                helperText={props.error.lastName}
+                error={error.lastName !== undefined}
+                helperText={error.lastName}
             />
             <Button onClick={(e) => {
-                props.submit()
+                submit()
             }}>
                 Submit
             </Button>

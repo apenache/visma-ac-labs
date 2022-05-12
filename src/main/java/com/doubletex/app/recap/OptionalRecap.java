@@ -2,6 +2,7 @@ package com.doubletex.app.recap;
 
 import org.hibernate.annotations.Comment;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 public class OptionalRecap {
@@ -46,8 +47,8 @@ public class OptionalRecap {
     }
 
     public static void processingOptionals() {
-//        Optional<String> foundQuestion = Optional.empty();
-        Optional<String> foundQuestion = Optional.of("How are you?");
+        Optional<String> foundQuestion = Optional.empty();
+//        Optional<String> foundQuestion = Optional.of("How are you?");
 
         if(foundQuestion.isPresent()) {
             System.out.println("Question found!");
@@ -63,6 +64,10 @@ public class OptionalRecap {
         foundQuestion.ifPresent((actualString) -> {
             System.out.println("OK: " + actualString);
         });
+
+        System.out.println(foundQuestion.orElse("No question."));
+
+        foundQuestion.orElseThrow(() -> new NoSuchElementException("No question."));
     }
 
     public static void main(String[] args) {
