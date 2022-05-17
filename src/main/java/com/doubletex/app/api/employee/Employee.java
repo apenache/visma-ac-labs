@@ -12,6 +12,7 @@ import javax.validation.constraints.PositiveOrZero;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Employee {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
