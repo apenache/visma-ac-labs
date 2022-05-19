@@ -15,7 +15,7 @@ public class EmployeeAPI {
     private final EmployeeService employeeService;
 
     @GetMapping("/{id}")
-    public Optional<Employee> get(@PathVariable Long id) {
+    public Employee get(@PathVariable Long id) {
         return employeeService.get(id);
     }
 

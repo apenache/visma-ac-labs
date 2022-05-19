@@ -13,8 +13,8 @@ import java.util.Optional;
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
 
-    public Optional<Employee> get(Long id) {
-        return employeeRepository.findById(id);
+    public Employee get(Long id) {
+        return employeeRepository.findById(id).orElseThrow(() -> new DoubletexNotFound(Employee.class, id));
     }
 
     public List<Employee> findAll() {

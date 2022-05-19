@@ -7,7 +7,7 @@ import {Counter} from "./Pages/Counter/Counter";
 function App() {
   return (
     <div>
-      <Counter />
+      <EmployeeForm {...useEmployeeForm()} />
     </div>
   )
 }

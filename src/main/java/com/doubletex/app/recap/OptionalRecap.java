@@ -47,8 +47,8 @@ public class OptionalRecap {
     }
 
     public static void processingOptionals() {
-        Optional<String> foundQuestion = Optional.empty();
-//        Optional<String> foundQuestion = Optional.of("How are you?");
+//        Optional<String> foundQuestion = Optional.empty();
+        Optional<String> foundQuestion = Optional.of("How are you?");
 
         if(foundQuestion.isPresent()) {
             System.out.println("Question found!");

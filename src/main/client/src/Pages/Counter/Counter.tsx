@@ -19,6 +19,7 @@ export function Counter() {
         console.log(`Changed count state to ${count}`);
     }, [count])
 
+    console.log('I am outside');
 
     useEffect(() => {
         console.log('Rendered components')
@@ -34,7 +35,6 @@ export function Counter() {
         doOnEachElement(array, (value) => console.log(value));
     }, [])
 
-    console.log('I am outside');
     return (
         <div style={{
             margin: 10,
@@ -50,7 +50,7 @@ export function Counter() {
 
             <Checkbox checked={isHighlighted} onChange={() => {
                 setIsHighlighted(!isHighlighted);
-                console.log('sdad', isHighlighted)
+                console.log('new h: ', isHighlighted)
             }}/>
         </div>
     )
