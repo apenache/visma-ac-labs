@@ -20,13 +20,15 @@ public class StreamRecap {
     static Employee employee3;
     static Employee employee4;
     static Employee employee5;
+    static Employee employee6;
     static List<Employee> employeeList;
     static {
-        employee1 = new Employee(1L, "Unu", "Unu", 60.5);
-        employee2 = new Employee(2L, "Cineva", "Ceva", 80.5);
-        employee3 = new Employee(3L, "Altcineva", "Altceva", 40.5);
-        employee4 = new Employee(4L, "NuStiu", "Nume", 50.0);
-        employee5 = new Employee(4L, "Inca", "Unu", 50.0);
+        employee1 = new Employee(1L, "Tyrion", "Lannister", 60.5);
+        employee2 = new Employee(2L, "Minato", "Namikaze", 80.5);
+        employee3 = new Employee(3L, "Severus", "Snape", 40.5);
+        employee4 = new Employee(4L, "Levi", "Ackerman", 50.0);
+        employee5 = new Employee(5L, "Wanda", "Maximoff", 90.0);
+        employee6 = new Employee(6L, "Lara", "Croft", 70.0);
         employeeList = List.of(employee1, employee2, employee3, employee4, employee5);
     }
 
