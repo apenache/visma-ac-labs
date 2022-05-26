@@ -1,7 +1,6 @@
 package com.doubletex.app.api.employee;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -19,11 +18,6 @@ public class EmployeeAPI {
         return employeeService.get(id);
     }
 
-    @GetMapping()
-    public List<Employee> findAll() {
-        return employeeService.findAll();
-    }
-
     @PostMapping("")
     public Employee post(@Valid @RequestBody Employee employee) {
         return employeeService.post(employee);
@@ -34,6 +28,14 @@ public class EmployeeAPI {
         return employeeService.raiseSalary(id, newSalary);
     }
 
+    @GetMapping
+    public List<Employee> getAllEmployees(
+            @RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber,
+            @RequestParam(name = "pageSize", defaultValue = "25") Integer pageSize,
+            @RequestParam(name = "sortBy", defaultValue = "id") String sortBy
+    ) {
+        return employeeService.getAllEmployees(pageNumber, pageSize, sortBy);
+    }
 }
 
 // api/employee?id=1
