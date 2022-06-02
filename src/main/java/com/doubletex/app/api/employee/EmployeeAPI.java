@@ -28,14 +28,21 @@ public class EmployeeAPI {
         return employeeService.raiseSalary(id, newSalary);
     }
 
-    @GetMapping
+    @GetMapping("")
     public List<Employee> getAllEmployees(
-            @RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber,
-            @RequestParam(name = "pageSize", defaultValue = "25") Integer pageSize,
-            @RequestParam(name = "sortBy", defaultValue = "id") String sortBy
+            @RequestParam(defaultValue = "0") Integer pageNumber,
+            @RequestParam(defaultValue = "25") Integer pageSize,
+            @RequestParam(defaultValue = "id") String sortBy
     ) {
-        return employeeService.getAllEmployees(pageNumber, pageSize, sortBy);
+        return employeeService.fetchPaginated(pageNumber, pageSize, sortBy);
     }
+
+    @GetMapping("/search")
+    public List<Employee> search(@RequestParam(defaultValue = "") String name) {
+        if (name.isEmpty()) return employeeService.fetchPaginated(0, 25, "id");
+        return employeeService.search(name);
+    }
+
 }
 
 // api/employee?id=1

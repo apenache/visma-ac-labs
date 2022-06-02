@@ -3,7 +3,6 @@ package com.doubletex.app.api.employee;
 import com.doubletex.app.exceptions.DoubletexBadRequest;
 import com.doubletex.app.exceptions.DoubletexNotFound;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -56,9 +55,13 @@ public class EmployeeService {
         }
     }
 
-    public List<Employee> getAllEmployees(Integer pageNumber, Integer pageSize, String sortBy) {
-        Pageable paging = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
-        Page<Employee> pagedResult = employeeRepository.findAll(paging);
-        return pagedResult.getContent();
+    public List<Employee> fetchPaginated(Integer pageNumber, Integer pageSize, String sortBy) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
+        return employeeRepository.findAll(pageable).getContent();
     }
+
+    public List<Employee> search(String name) {
+        return employeeRepository.findEmployeesByNameLike(name);
+    }
+
 }
