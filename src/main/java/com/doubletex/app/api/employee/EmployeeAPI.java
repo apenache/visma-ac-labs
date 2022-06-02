@@ -1,6 +1,7 @@
 package com.doubletex.app.api.employee;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -34,7 +35,7 @@ public class EmployeeAPI {
     }
 
     @GetMapping("")
-    public List<Employee> getAllEmployees(
+    public Page<Employee> getAllEmployees(
             @RequestParam(defaultValue = "0") Integer pageNumber,
             @RequestParam(defaultValue = "25") Integer pageSize,
             @RequestParam(defaultValue = "id") String sortBy
@@ -43,9 +44,14 @@ public class EmployeeAPI {
     }
 
     @GetMapping("/search")
-    public List<Employee> search(@RequestParam(defaultValue = "") String name) {
+    public Page<Employee> search(
+            @RequestParam(defaultValue = "") String name,
+            @RequestParam(defaultValue = "0") Integer pageNumber,
+            @RequestParam(defaultValue = "25") Integer pageSize,
+            @RequestParam(defaultValue = "id") String sortBy
+    ) {
         if (name.isEmpty()) return employeeService.fetchPaginated(0, 25, "id");
-        return employeeService.search(name);
+        return employeeService.search(pageNumber, pageSize, sortBy, name);
     }
 
 }
