@@ -1,5 +1,7 @@
 package com.doubletex.app.recap;
 
+import org.springframework.context.annotation.Bean;
+
 public class DependencyInjection {
     interface DrinkDispenser {
         String getDrink(float liters);
@@ -52,9 +54,9 @@ public class DependencyInjection {
     }
 
     public static void main(String[] args) {
-        DrinkDispenser availableDispenser = new WaterDispenser();
+//        DrinkDispenser availableDispenser = new WaterDispenser();
 //        DrinkDispenser availableDispenser = new SodaDispenser("Coca-Cola", true);
-//        DrinkDispenser availableDispenser = new WhiskyDispenser(0.4F);
+        DrinkDispenser availableDispenser = new WhiskyDispenser(0.4F);
         Shop cornerStore = new Shop(availableDispenser, 0.5F);
 
         System.out.println(cornerStore.giveSampleDrink());

@@ -35,6 +35,17 @@ export function EmployeeForm(props: EmployeeFormProps) {
                 error={error.lastName !== undefined}
                 helperText={error.lastName}
             />
+            <TextField
+                value={props.employee.salary}
+                label={'Salary'}
+                type="number"
+                onChange={(e) => {
+                    const newEmployee: Employee = {...employee, salary: +e.currentTarget.value}
+                    setEmployee(newEmployee)
+                }}
+                error={error.salary !== undefined}
+                helperText={error.salary}
+            />
             <Button variant={"contained"} onClick={(e) => {
                 submit()
             }}>

@@ -3,6 +3,9 @@ package com.doubletex.app.api.employee;
 import com.doubletex.app.exceptions.DoubletexBadRequest;
 import com.doubletex.app.exceptions.DoubletexNotFound;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,11 +25,12 @@ public class EmployeeService {
     }
 
     public Employee post(Employee employee) {
-//        validateEmployee(employee);
-//        DoubletexBadRequest.current().throwIfNecessary();
         return employeeRepository.save(employee);
     }
 
+    public Employee put(Employee employee) {
+        return employeeRepository.save(employee);
+    }
 
     public Employee raiseSalary(Long id, Double newSalary) {
         Employee employee = employeeRepository.findById(id).orElseThrow(() -> new DoubletexNotFound(Employee.class, id));
@@ -49,5 +53,14 @@ public class EmployeeService {
         if(employee.getSalary() > newSalary) {
             doubletexBadRequest.addValidation("salary", "Should be a raise");
         }
+    }
+
+    public List<Employee> fetchPaginated(
+            Integer pageSize,
+            Integer pageNumber,
+            String sortBy
+    ) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
+        return employeeRepository.findAll(pageable).getContent();
     }
 }
