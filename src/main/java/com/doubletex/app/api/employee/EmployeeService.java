@@ -17,8 +17,8 @@ import java.util.Optional;
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
 
-    public Optional<Employee> get(Long id) {
-        return employeeRepository.findById(id);
+    public Employee get(Long id) {
+        return employeeRepository.findById(id).orElseThrow(() -> new DoubletexNotFound(Employee.class, id));
     }
 
     public List<Employee> findAll() {
@@ -26,11 +26,12 @@ public class EmployeeService {
     }
 
     public Employee post(Employee employee) {
-//        validateEmployee(employee);
-//        DoubletexBadRequest.current().throwIfNecessary();
         return employeeRepository.save(employee);
     }
 
+    public Employee put(Employee employee) {
+        return employeeRepository.save(employee);
+    }
 
     public Employee raiseSalary(Long id, Double newSalary) {
         Employee employee = employeeRepository.findById(id).orElseThrow(() -> new DoubletexNotFound(Employee.class, id));

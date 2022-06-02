@@ -9,6 +9,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 public class LambdaRecap {
 
@@ -34,7 +35,7 @@ public class LambdaRecap {
 
 
     public static void moreTypes() {
-        Predicate<Integer> isPositive = (x) -> x >= 0; // Same as Function<Integer, Boolean>
+        Predicate<Integer> isPositive = (x) -> (x >= 0); // Same as Function<Integer, Boolean>
         Consumer<Integer> showIt = (x) -> System.out.println(x);
         Consumer<Integer> showItRef = System.out::println;
 
@@ -61,9 +62,6 @@ public class LambdaRecap {
 
 
 
-    public static Function<String, Function<String, String> > dialogue =
-        (personName) -> (whatTheySaid) -> personName.toUpperCase() + ": " + whatTheySaid;
-
 
 
     public static int costlyComputation() {
@@ -88,12 +86,15 @@ public class LambdaRecap {
 
     public static void previewIteration() {
         List<String> myList = List.of("You", "are", "a", "wizard", "Harry");
-        List<String> otherList = transformEachElement(myList, String::toUpperCase);
+        List<String> otherList = transformEachElement(myList, (str) -> str.length() + "");
+//        List<String> streamedList = myList.stream().map((str) -> str.length() + "").collect(Collectors.toList());
 
         System.out.println(otherList);
+//        System.out.println(streamedList);
     }
 
-
+    public static Function<String,  Function<String,   String>   > dialogue =
+            (personName) -> ( (whatTheySaid) -> ( personName.toUpperCase() + ": " + whatTheySaid ) );
 
     public static void partialApplication() {
         Function<String, String> frodoSaid = dialogue.apply("Frodo");
@@ -106,7 +107,7 @@ public class LambdaRecap {
     }
 
     public static void lazyComputation() {
-        int someValue = -55;
+        int someValue = 55;
         System.out.println("start");
         positiveOrCompute(someValue, LambdaRecap::costlyComputation);
     }
