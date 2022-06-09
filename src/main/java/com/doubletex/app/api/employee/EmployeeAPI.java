@@ -2,6 +2,7 @@ package com.doubletex.app.api.employee;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -17,11 +18,6 @@ public class EmployeeAPI {
     @GetMapping("/{id}")
     public Employee get(@PathVariable Long id) {
         return employeeService.get(id);
-    }
-
-    @GetMapping()
-    public List<Employee> findAll() {
-        return employeeService.findAll();
     }
 
     @PostMapping("")
@@ -40,12 +36,24 @@ public class EmployeeAPI {
     }
 
     @GetMapping("")
-    public List<Employee> getAllEmployees(
-            @RequestParam(defaultValue = "25") Integer pageSize,
+    public Page<Employee> getAllEmployees(
             @RequestParam(defaultValue = "0") Integer pageNumber,
+            @RequestParam(defaultValue = "25") Integer pageSize,
             @RequestParam(defaultValue = "id") String sortBy
     ) {
-        return employeeService.fetchPaginated(pageSize, pageNumber, sortBy);
+        return employeeService.fetchPaginated(pageNumber, pageSize, sortBy);
+    }
+
+    @GetMapping("/search")
+    public Page<Employee> search(
+            @RequestParam(defaultValue = "0") Integer pageNumber,
+            @RequestParam(defaultValue = "25") Integer pageSize,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "") String name
+    ) {
+        if(name.isEmpty())
+            return employeeService.fetchPaginated(pageNumber, pageSize, sortBy);
+        return employeeService.search(pageNumber, pageSize, sortBy, name);
     }
 
 }
