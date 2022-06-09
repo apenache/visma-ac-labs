@@ -5,8 +5,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/employee")
@@ -45,12 +43,13 @@ public class EmployeeAPI {
 
     @GetMapping("/search")
     public Page<Employee> search(
-            @RequestParam(defaultValue = "") String name,
             @RequestParam(defaultValue = "0") Integer pageNumber,
             @RequestParam(defaultValue = "25") Integer pageSize,
-            @RequestParam(defaultValue = "id") String sortBy
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "") String name
     ) {
-        if (name.isEmpty()) return employeeService.fetchPaginated(0, 25, "id");
+        if(name.isEmpty())
+            return employeeService.fetchPaginated(pageNumber, pageSize, sortBy);
         return employeeService.search(pageNumber, pageSize, sortBy, name);
     }
 

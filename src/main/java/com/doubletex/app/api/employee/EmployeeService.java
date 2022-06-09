@@ -9,9 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -64,7 +62,7 @@ public class EmployeeService {
 
     public Page<Employee> search(Integer pageNumber, Integer pageSize, String sortBy, String name) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
-        return employeeRepository.findEmployeesByNameLike(name, pageable);
+        return employeeRepository.findEmployeesByFullNameLike(pageable, name);
     }
 
 }
