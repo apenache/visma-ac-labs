@@ -55,22 +55,14 @@ public class EmployeeService {
         }
     }
 
-    public Page<Employee> fetchPaginated(
-            Integer pageNumber,
-            Integer pageSize,
-            String sortBy
-    ) {
+    public Page<Employee> fetchPaginated(Integer pageNumber, Integer pageSize, String sortBy) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
         return employeeRepository.findAll(pageable);
     }
 
-    public Page<Employee> search(
-            Integer pageNumber,
-            Integer pageSize,
-            String sortBy,
-            String name
-    ) {
+    public Page<Employee> search(Integer pageNumber, Integer pageSize, String sortBy, String name) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
-        return employeeRepository.findEmployeesByFullNameLike(pageable, name);
+        return employeeRepository.findEmployeesByNameLike(name, pageable);
     }
+
 }
